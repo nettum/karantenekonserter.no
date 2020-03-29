@@ -7,7 +7,7 @@ function MyApp({ Component, pageProps }) {
     <Container>
       <Head>
         <link
-          href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&display=swap"
+          href="https://fonts.googleapis.com/css?family=Bitter|Open+Sans&display=swap"
           rel="stylesheet"
         />
       </Head>
