@@ -3,12 +3,12 @@ import Link from 'next/link';
 import styles from './header.module.css';
 
 const Header = () => (
-  <header>
+  <header className={styles.main}>
     <Link href="/">
-      <a className={styles.link}>Karantenekonserter.no</a>
+      <a><h1>Karantenekonserter.no</h1></a>
     </Link>
     <Link href="/about">
-      <a className={styles.link}>Om</a>
+      <a className={styles.about}>Om</a>
     </Link>
   </header>
 );

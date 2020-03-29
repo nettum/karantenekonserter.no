@@ -3,28 +3,26 @@ import groq from 'groq'
 import client from '../client'
 
 import Layout from '../components/layout';
-
+import styles from './index.module.css';
 const Index = (props) => {
   const { streams = [] } = props;
 
   return (
     <Layout>
-      <div>
-        <h1>Karantenekonserter.no</h1>
-        <section>
-        {streams.map(
-          ({ _id, title, slug, poster }) =>
-          <div key={_id}>
-            <Link href="/stream/[slug]" as={`/stream/${slug.current}`}>
-              <a>
-                <h2>{title}</h2>
-                {poster && <img src={`${poster}?w=400`} alt={`Skjermbilde av ${title}`} />}
-              </a>
-            </Link>
-          </div>
-        )}
-        </section>
-      </div>
+      <section className={styles.streams}>
+      {streams.map(
+        ({ _id, title, slug, poster, streamDate }) =>
+        <div key={_id} className={styles.item}>
+          <Link href="/stream/[slug]" as={`/stream/${slug.current}`}>
+            <a>
+              {poster && <img src={`${poster}?w=350&h=197&crop=center&fit=crop`} alt={`Skjermbilde av ${title}`} />}
+              <h2>{title}</h2>
+              <small>{new Intl.DateTimeFormat('nb-NO', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'} ).format(new Date(streamDate))}</small>
+            </a>
+          </Link>
+        </div>
+      )}
+      </section>
     </Layout>
   )
 }
@@ -35,7 +33,8 @@ Index.getInitialProps = async () => ({
       _id,
       title,
       slug,
-      "poster": poster.asset->url
+      "poster": poster.asset->url,
+      streamDate,
     }|order(streamDate desc)
   `)
 });

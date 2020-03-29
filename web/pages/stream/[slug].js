@@ -5,13 +5,15 @@ import Layout from '../../components/layout';
 import FacebookVideo from '../../components/facebookvideo';
 import YoutubeVideo from '../../components/youtubevideo';
 
+import styles from './stream.module.css';
+
 const Stream = (props) => {
   const { title, poster, facebookUrl, youtubeUrl } = props;
   const router = useRouter();
   return (
     <Layout>
-      <article>
-        <h1>{title}</h1>
+      <article className={styles.main}>
+        <h1 className={styles.foo}>{title}</h1>
         {facebookUrl && <FacebookVideo url={facebookUrl} />}
         {youtubeUrl && <YoutubeVideo url={youtubeUrl} />}
       </article>

@@ -20,7 +20,7 @@ export default {
     {
       title: 'Stream date',
       name: 'streamDate',
-      type: 'datetime'
+      type: 'datetime',
     },
     {
       title: 'Poster',
@@ -42,5 +42,21 @@ export default {
       title: 'Youtube URL',
       description: 'If the concert is a youtube stream, paste the youtube URL for the video here'
     },
-  ]
+  ],
+  preview: {
+    select: {
+      title: 'title',
+      subtitle: 'streamDate',
+      media: 'poster',
+    },
+  },
+  orderings: [
+    {
+      title: 'Stream date',
+      name: 'streamDateDesc',
+      by: [
+        {field: 'streamDate', direction: 'desc'}
+      ]
+    },
+  ],
 }

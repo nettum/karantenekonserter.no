@@ -1,0 +1,29 @@
+.streams {
+  display: grid;
+  grid-gap: 15px;
+  padding: 0 15px;
+  grid-template-columns: repeat(auto-fill, 100%);
+  justify-content: center;
+  max-width: 1460px;
+  margin: 0 auto;
+}
+.item {
+  margin-bottom: 40px;
+}
+.item img {
+  width: 100%;
+  height: auto;
+}
+.item h2 {
+  font-size: 16px;
+}
+.item small {
+  font-size: 12px;
+}
+
+@media (min-width: 715px) {
+  .streams {
+    padding: 0;
+    grid-template-columns: repeat(auto-fill, 350px);
+  }
+}
