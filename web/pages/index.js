@@ -4,6 +4,7 @@ import client from '../client'
 
 import Layout from '../components/layout';
 import styles from './index.module.css';
+
 const Index = (props) => {
   const { streams = [] } = props;
 

@@ -42,6 +42,12 @@ export default {
       title: 'Youtube URL',
       description: 'If the concert is a youtube stream, paste the youtube URL for the video here'
     },
+    {
+      title: 'Description',
+      name: 'description',
+      type: 'array',
+      of: [{type: 'block'}]
+    }
   ],
   preview: {
     select: {

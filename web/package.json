@@ -16,6 +16,7 @@
     "react"
   ],
   "dependencies": {
+    "@sanity/block-content-to-react": "^2.0.7",
     "@sanity/client": "^1.149.2",
     "groq": "^1.149.0",
     "next": "^9.3.2",
