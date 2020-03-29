@@ -18,7 +18,7 @@ const Index = (props) => {
             <Link href="/stream/[slug]" as={`/stream/${slug.current}`}>
               <a>
                 <h2>{title}</h2>
-                <img src={`${poster}?w=400`} alt={`Skjermbilde av ${title}`} />
+                {poster && <img src={`${poster}?w=400`} alt={`Skjermbilde av ${title}`} />}
               </a>
             </Link>
           </div>
@@ -36,7 +36,7 @@ Index.getInitialProps = async () => ({
       title,
       slug,
       "poster": poster.asset->url
-    }
+    }|order(streamDate desc)
   `)
 });
 

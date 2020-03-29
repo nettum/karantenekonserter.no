@@ -7,17 +7,20 @@ export default {
       name: 'title',
       type: 'string',
       title: 'Title',
-      description: 'Title will be shown on the frontpage and over the stream itself'
     },
     {
       name: 'slug',
       type: 'slug',
       title: 'Slug',
-      description: 'Used in the URL for the stream',
       options: {
         source: 'title',
         maxLength: 96
       }
+    },
+    {
+      title: 'Stream date',
+      name: 'streamDate',
+      type: 'datetime'
     },
     {
       title: 'Poster',
