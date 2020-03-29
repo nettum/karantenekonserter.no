@@ -1,16 +1,19 @@
 import { useRouter } from 'next/router'
-import Layout from '../../components/layout';
 import client from '../../client';
 
-const Stream = (props) => {
-  const { title, poster} = props;
-  const router = useRouter();
+import Layout from '../../components/layout';
+import FacebookVideo from '../../components/facebookvideo';
+import YoutubeVideo from '../../components/youtubevideo';
 
+const Stream = (props) => {
+  const { title, poster, facebookUrl, youtubeUrl } = props;
+  const router = useRouter();
   return (
     <Layout>
       <article>
         <h1>{title}</h1>
-        <img src={`${poster}?w=1024`} alt={`Skjermbilde av ${title}`} />
+        {facebookUrl && <FacebookVideo url={facebookUrl} />}
+        {youtubeUrl && <YoutubeVideo url={youtubeUrl} />}
       </article>
     </Layout>
   );
@@ -23,7 +26,9 @@ Stream.getInitialProps = async function(context) {
       _id,
       title,
       slug,
-      "poster": poster.asset->url
+      "poster": poster.asset->url,
+      facebookUrl,
+      youtubeUrl,
     }[0]
   `, { slug });
 };
