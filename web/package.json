@@ -7,7 +7,9 @@
   "author": "Marius Nettum <nettum@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
   },
   "keywords": [
     "next",
