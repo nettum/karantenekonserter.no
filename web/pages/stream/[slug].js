@@ -13,9 +13,11 @@ const Stream = (props) => {
   const router = useRouter();
 
   const serializers = {
-    link: ({mark, children}) => {
-      const { href } = mark
-      return <a href={href} target="_blank" rel="noopener">{children}</a>
+    marks: {
+      link: ({mark, children}) => {
+        const { href } = mark
+        return <a href={href} target="_blank" rel="noopener">{children}</a>
+      },
     }
   };
 
