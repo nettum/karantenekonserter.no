@@ -2,6 +2,11 @@
   margin: 0 auto;
   max-width: 700px;
   line-height: 24px;
+  padding: 0 15px;
+}
+.main h1 {
+  font-size: 28px;
+  line-height: 34px;
 }
 
 .main a {
@@ -11,4 +16,10 @@
 .main a:hover {
   text-decoration: none;
   background-color: #000;
+}
+
+@media (min-width: 715px) {
+  .main {
+    padding: 0;
+  }
 }
