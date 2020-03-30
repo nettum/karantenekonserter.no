@@ -8,9 +8,29 @@ import YoutubeVideo from '../../components/youtubevideo';
 
 import styles from './stream.module.css';
 
+const renderStream = (props) => {
+  const { title, facebookUrl, youtubeUrl, streamDate, poster } = props;
+
+  const airDate = new Date(streamDate);
+  const now = new Date();
+
+  if (now < airDate && !facebookUrl && !youtubeUrl) {
+    return poster &&
+      <div>
+        <img src={`${poster}?w=1280&crop=center&fit=crop`} alt={`Skjermbilde av ${title}`} />
+      </div>;
+  }
+
+  return (
+    <>
+      {facebookUrl && <FacebookVideo url={facebookUrl} />}
+      {youtubeUrl && <YoutubeVideo url={youtubeUrl} />}
+    </>
+  );
+};
+
 const Stream = (props) => {
-  const { title, poster, streamDate, facebookUrl, youtubeUrl, description } = props;
-  const router = useRouter();
+  const { title, streamDate, description } = props;
 
   const serializers = {
     marks: {
@@ -24,8 +44,7 @@ const Stream = (props) => {
   return (
     <Layout>
       <article className={styles.main}>
-        {facebookUrl && <FacebookVideo url={facebookUrl} />}
-        {youtubeUrl && <YoutubeVideo url={youtubeUrl} />}
+        {renderStream(props)}
         <div className={styles.intro}>
           <div>
             <h1>{title}</h1>
@@ -38,14 +57,14 @@ const Stream = (props) => {
           </ul>
         </div>
         <div class={styles.info}>
-        <BlockContent blocks={description} serializers={serializers} />
+          <BlockContent blocks={description} serializers={serializers} />
         </div>
       </article>
     </Layout>
   );
 }
 
-Stream.getInitialProps = async function(context) {
+Stream.getInitialProps = async (context) => {
   const { slug = '' } = context.query;
   return await client.fetch(`
     *[_type == "stream" && slug.current == $slug]{
