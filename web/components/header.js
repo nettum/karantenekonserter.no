@@ -2,7 +2,8 @@ import Link from 'next/link';
 
 import styles from './header.module.css';
 
-const Header = () => (
+const Header = () => {
+  return (
   <header className={styles.main}>
     <Link href="/">
       <a><h1>Karantenekonserter.no</h1></a>
@@ -11,6 +12,7 @@ const Header = () => (
       <a className={styles.about}>Om</a>
     </Link>
   </header>
-);
+  )
+};
 
 export default Header;

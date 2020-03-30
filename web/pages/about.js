@@ -1,13 +1,29 @@
-import Layout from '../components/layout';
-const About = () => {
+import groq from 'groq'
+import client from '../client'
+import BlockContent from '@sanity/block-content-to-react';
+
+import styles from './about.module.css';
+
+const About = (props) => {
+  const { title, body } = props;
   return (
-    <Layout>
+    <div className={styles.main}>
+      <h1>{title}</h1>
       <div>
-        <h1>Om karantenekonserter.no</h1>
-        <p>Her kommer info om karantenekonserter.no</p>
+        <BlockContent blocks={body} />
       </div>
-    </Layout>
+    </div>
   )
 }
+
+About.getInitialProps = async () => {
+  return await client.fetch(groq`
+    *[_type == "page" && slug.current == "about"]{
+      _id,
+      title,
+      body,
+    }[0]
+  `);
+};
 
 export default About;
