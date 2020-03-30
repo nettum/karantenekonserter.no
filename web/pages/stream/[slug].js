@@ -7,12 +7,9 @@ import YoutubeVideo from '../../components/youtubevideo';
 import styles from './stream.module.css';
 
 const renderStream = (props) => {
-  const { title, facebookUrl, youtubeUrl, streamDate, poster } = props;
+  const { title, facebookUrl, youtubeUrl, poster } = props;
 
-  const airDate = new Date(streamDate);
-  const now = new Date();
-
-  if (now < airDate && !facebookUrl && !youtubeUrl) {
+  if (!facebookUrl && !youtubeUrl) {
     return poster && <img src={`${poster}?w=1280&crop=center&fit=crop`} alt={`Skjermbilde av ${title}`} />
   }
 
