@@ -32,9 +32,9 @@ const Stream = (props) => {
             <small>{new Intl.DateTimeFormat('nb-NO', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'} ).format(new Date(streamDate))}</small>
           </div>
           <ul>
-            <li>1</li>
+            {/* <li>1</li>
             <li>2</li>
-            <li>3</li>
+            <li>3</li> */}
           </ul>
         </div>
         <div class={styles.info}>
