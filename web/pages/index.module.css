@@ -8,6 +8,7 @@
   margin: 0 auto;
 }
 .item {
+  position: relative;
   margin-bottom: 40px;
 }
 .item img {
@@ -19,6 +20,15 @@
 }
 .item small {
   font-size: 12px;
+}
+
+.item .upcoming {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: white;
+  color: black;
+  padding: 5px;
 }
 
 @media (min-width: 715px) {
