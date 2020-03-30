@@ -2,7 +2,6 @@ import Link from 'next/link'
 import groq from 'groq'
 import client from '../client'
 
-import Layout from '../components/layout';
 import styles from './index.module.css';
 
 
@@ -30,11 +29,9 @@ const Index = (props) => {
   const { streams = [] } = props;
 
   return (
-    <Layout>
-      <section className={styles.streams}>
-        {streams.map(item => (renderItem(item)))}
-      </section>
-    </Layout>
+    <section className={styles.streams}>
+      {streams.map(item => (renderItem(item)))}
+    </section>
   )
 }
 

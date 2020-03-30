@@ -1,18 +1,21 @@
 import Head from 'next/head';
-import { Container } from 'next/app';
 import '../styles.css'
+
+import Layout from '../components/layout';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Container>
+    <>
       <Head>
         <link
           href="https://fonts.googleapis.com/css?family=Bitter|Open+Sans&display=swap"
           rel="stylesheet"
         />
       </Head>
-      <Component {...pageProps} />
-    </Container>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </>
   );
 }
 

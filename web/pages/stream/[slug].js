@@ -1,8 +1,6 @@
-import { useRouter } from 'next/router'
 import client from '../../client';
 import BlockContent from '@sanity/block-content-to-react';
 
-import Layout from '../../components/layout';
 import FacebookVideo from '../../components/facebookvideo';
 import YoutubeVideo from '../../components/youtubevideo';
 
@@ -42,25 +40,23 @@ const Stream = (props) => {
   };
 
   return (
-    <Layout>
-      <article className={styles.main}>
-        {renderStream(props)}
-        <div className={styles.intro}>
-          <div>
-            <h1>{title}</h1>
-            <small>{new Intl.DateTimeFormat('nb-NO', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'} ).format(new Date(streamDate))}</small>
-          </div>
-          <ul>
-            {/* <li>1</li>
-            <li>2</li>
-            <li>3</li> */}
-          </ul>
+    <article className={styles.main}>
+      {renderStream(props)}
+      <div className={styles.intro}>
+        <div>
+          <h1>{title}</h1>
+          <small>{new Intl.DateTimeFormat('nb-NO', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'} ).format(new Date(streamDate))}</small>
         </div>
-        <div class={styles.info}>
-          <BlockContent blocks={description} serializers={serializers} />
-        </div>
-      </article>
-    </Layout>
+        <ul>
+          {/* <li>1</li>
+          <li>2</li>
+          <li>3</li> */}
+        </ul>
+      </div>
+      <div className={styles.info}>
+        <BlockContent blocks={description} serializers={serializers} />
+      </div>
+    </article>
   );
 }
 
