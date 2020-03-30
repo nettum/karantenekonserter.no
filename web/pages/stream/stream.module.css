@@ -1,6 +1,11 @@
 .main {
   max-width: 1280px;
   margin: 0 auto;
+  padding: 0 15px;
+}
+
+.main img {
+  width: 100%;
 }
 
 .intro {
@@ -26,4 +31,10 @@
 .info a:hover {
   text-decoration: none;
   background-color: #000;
+}
+
+@media (min-width: 1300px) {
+  .main {
+    padding: 0;
+  }
 }

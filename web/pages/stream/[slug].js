@@ -13,10 +13,7 @@ const renderStream = (props) => {
   const now = new Date();
 
   if (now < airDate && !facebookUrl && !youtubeUrl) {
-    return poster &&
-      <div>
-        <img src={`${poster}?w=1280&crop=center&fit=crop`} alt={`Skjermbilde av ${title}`} />
-      </div>;
+    return poster && <img src={`${poster}?w=1280&crop=center&fit=crop`} alt={`Skjermbilde av ${title}`} />
   }
 
   return (

@@ -1,16 +1,32 @@
 .main {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
   width: 100%;
   margin: 0 auto;
   text-align: center;
-  height: 70px;
   margin-bottom: 60px;
-
 }
-.about {
-  position: absolute;
-  right: 20px;
+
+.main h1 {
+  font-size: 26px;
+  padding: 20px;
+}
+
+@media (min-width: 400px) {
+  .main h1 {
+    font-size: 32px;
+  }
+}
+@media (min-width: 1080px) {
+  .main {
+    flex-direction: row;
+  }
+  .about {
+    margin-top: 3px;
+    position: absolute;
+    right: 20px;
+  }
 }
