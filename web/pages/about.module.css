@@ -1,4 +1,14 @@
 .main {
   margin: 0 auto;
-  max-width: 1460px;
+  max-width: 700px;
+  line-height: 24px;
+}
+
+.main a {
+  text-decoration: underline;
+}
+
+.main a:hover {
+  text-decoration: none;
+  background-color: #000;
 }
