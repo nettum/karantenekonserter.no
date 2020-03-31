@@ -7,7 +7,7 @@ import ZeitLogo from './icons/zeit';
 const Footer = () => (
   <footer className={styles.main}>
     <div className={styles.content}>
-      <small>made with</small>
+      <small>Laget med</small>
       <span>❤️</span>
       <span>🤘</span>
     </div>
@@ -16,6 +16,7 @@ const Footer = () => (
       <a className={styles.next} href="https://zeit.co/solutions/nextjs" rel="noopener"><NextLogo /></a>
       <a href="https://zeit.co/home" rel="noopener"><ZeitLogo /></a>
     </div>
+    <small>Siden bruker google analytics til statistikk</small>
   </footer>
 );
 
