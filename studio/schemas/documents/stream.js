@@ -21,6 +21,9 @@ export default {
       title: 'Stream date',
       name: 'streamDate',
       type: 'datetime',
+      options: {
+        timeStep: 60,
+      },
     },
     {
       title: 'Poster',
