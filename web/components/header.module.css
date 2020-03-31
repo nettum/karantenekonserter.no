@@ -7,17 +7,33 @@
   width: 100%;
   margin: 0 auto;
   text-align: center;
-  margin-bottom: 60px;
+  padding: 20px 0 40px 0;
 }
 
 .main h1 {
   font-size: 26px;
   padding: 20px;
+  background: linear-gradient(135deg,  #fedc45 0%,#fb7099 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+}
+.main .emoji {
+  display: flex;
+  justify-content: center;
+}
+.main img {
+  height: 80px;
+  padding: 0 40px;
 }
 
 @media (min-width: 400px) {
   .main h1 {
     font-size: 32px;
+  }
+  .main img {
+    height: 160px;
+    padding: 0 40px;
   }
 }
 @media (min-width: 1080px) {
@@ -25,8 +41,8 @@
     flex-direction: row;
   }
   .about {
-    margin-top: 3px;
     position: absolute;
+    top: 20px;
     right: 20px;
   }
 }
