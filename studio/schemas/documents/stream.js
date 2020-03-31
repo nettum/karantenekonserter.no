@@ -7,6 +7,7 @@ export default {
       name: 'title',
       type: 'string',
       title: 'Title',
+      validation: Rule => Rule.required(),
     },
     {
       name: 'slug',
@@ -24,6 +25,7 @@ export default {
       options: {
         timeStep: 60,
       },
+      validation: Rule => Rule.required(),
     },
     {
       title: 'Arrangør',
