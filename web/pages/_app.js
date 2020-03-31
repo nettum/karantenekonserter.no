@@ -16,6 +16,13 @@ function MyApp({ Component, pageProps }) {
           url: 'https://karantenekonserter.no',
           title: 'Karantenekonserter.no',
           description: 'STØTT NORSKE ARTISTER! Se opptak og hvilke konserter som kommer for strømming på karantenekonserter.no',
+          images: [
+            {
+              url: 'https://karantenekonserter.no/shareimage.png'
+              width: 1200,
+              height: 630,
+            },
+          ],
         }}
       />
       <Head>
