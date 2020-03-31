@@ -26,6 +26,22 @@ export default {
       },
     },
     {
+      title: 'Arrangør',
+      name: 'organizer',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [
+            {type: 'organizer'},
+          ]
+        }
+      ],
+      options: {
+        layout: 'tags'
+      },
+    },
+    {
       title: 'Poster',
       name: 'poster',
       type: 'image',
