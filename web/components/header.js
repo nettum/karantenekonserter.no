@@ -10,7 +10,7 @@ const Header = () => (
           <img src="heart.png" alt="Hjerte emoji ❤️" />
           <img src="horns.png" alt="Djevelhorn emoji 🤘" />
         </div>
-        <h1>Karantenekonserter.no</h1>
+        <h1>karantenekonserter.no</h1>
       </a>
     </Link>
     <Link href="/about">
