@@ -6,10 +6,11 @@ import styles from './index.module.css';
 
 
 const renderItem = (item)  => {
-  const { _id, title, slug, poster, streamDate } = item;
+  const { _id, title, slug, poster, streamDate, facebookUrl, youtubeUrl } = item;
 
   const airDate = new Date(streamDate);
   const now = new Date();
+  const diff = (((now - airDate) / 1000) / 60);
 
   return (
     <div key={_id} className={styles.item}>
@@ -19,6 +20,14 @@ const renderItem = (item)  => {
           <h2>{title}</h2>
           <small>{new Intl.DateTimeFormat('nb-NO', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'} ).format(new Date(streamDate))}</small>
           {now < airDate && <small className={styles.upcoming}>Kommende</small>}
+          {
+            diff > 0 &&
+            diff < 45 &&
+            (facebookUrl != null  || youtubeUrl != null) &&
+            <small className={styles.streaming}>
+              Strømmes nå!
+            </small>
+          }
         </a>
       </Link>
     </div>
@@ -43,6 +52,8 @@ Index.getInitialProps = async () => ({
       slug,
       "poster": poster.asset->url,
       streamDate,
+      facebookUrl,
+      youtubeUrl,
     }|order(streamDate desc)
   `)
 });

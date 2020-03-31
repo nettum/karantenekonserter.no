@@ -31,6 +31,15 @@
   padding: 5px;
 }
 
+.item .streaming {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: linear-gradient(135deg,  #fedc45 0%,#fb7099 100%);
+  color: black;
+  padding: 5px;
+}
+
 @media (min-width: 715px) {
   .streams {
     padding: 0;
