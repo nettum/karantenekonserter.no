@@ -7,8 +7,8 @@ const Header = () => (
     <Link className={styles.logo} href="/">
       <a>
         <div className={styles.emoji}>
-          <img src="heart.png" alt="Hjerte emoji ❤️" />
-          <img src="horns.png" alt="Djevelhorn emoji 🤘" />
+          <img src="/heart.png" alt="Hjerte emoji ❤️" />
+          <img src="/horns.png" alt="Djevelhorn emoji 🤘" />
         </div>
         <h1>karantenekonserter.no</h1>
       </a>
