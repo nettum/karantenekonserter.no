@@ -1,7 +1,7 @@
 export default {
   name: 'organizer',
   type: 'document',
-  title: 'Arrangør',
+  title: 'Organizer',
   fields: [
     {
       name: 'title',

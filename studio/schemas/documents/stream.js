@@ -28,7 +28,7 @@ export default {
       validation: Rule => Rule.required(),
     },
     {
-      title: 'Arrangør',
+      title: 'Organizer',
       name: 'organizer',
       type: 'array',
       of: [
