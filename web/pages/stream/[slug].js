@@ -23,8 +23,23 @@ const renderStream = (props) => {
   );
 };
 
+const renderOrganizers = (organizers) => {
+  console.log(organizers);
+  if (organizers.length === 0) return null;
+
+  return organizers.map(organizer => {
+    console.log(organizer.facebookUrl);
+    return (
+      <li>
+        <a href={organizer.facebookUrl} target="_blank" rel="noopener"><span>{organizer.title}</span></a>
+        <img src={`${organizer.logo}?w=50&h=50&crop=center&fit=crop`} alt={`Logo, ${organizer.title}`} />
+      </li>
+    );
+  });
+};
+
 const Stream = (props) => {
-  const { title, slug, poster, streamDate, description } = props;
+  const { title, slug, poster, streamDate, description, organizer } = props;
 
   const readableDate = new Intl.DateTimeFormat('nb-NO', {
     year: 'numeric',
@@ -33,8 +48,6 @@ const Stream = (props) => {
     hour: 'numeric',
     minute: 'numeric'}
     ).format(new Date(streamDate));
-
-  // const shareImage = {`${poster}?w=1200&h=630&crop=center&fit=crop`};
 
   const serializers = {
     marks: {
@@ -65,20 +78,20 @@ const Stream = (props) => {
         }}
       />
       {renderStream(props)}
-      <div className={styles.intro}>
+      <section>
         <div>
-          <h1>{title}</h1>
-          <small>{readableDate}</small>
+          <div className={styles.intro}>
+            <div>
+              <h1>{title}</h1>
+              <small>{readableDate}</small>
+            </div>
+          </div>
+          <div className={styles.info}>
+            <BlockContent blocks={description} serializers={serializers} />
+          </div>
         </div>
-        <ul>
-          {/* <li>1</li>
-          <li>2</li>
-          <li>3</li> */}
-        </ul>
-      </div>
-      <div className={styles.info}>
-        <BlockContent blocks={description} serializers={serializers} />
-      </div>
+          {organizer.length > 0 && <div className={styles.organizers}><h3>Denne konserten er arrangert av:</h3><ul>{renderOrganizers(organizer)}</ul></div>}
+      </section>
     </article>
   );
 }
@@ -95,6 +108,7 @@ Stream.getInitialProps = async (context) => {
       facebookUrl,
       youtubeUrl,
       description,
+      organizer[]->{title, 'logo': logo.asset->url, facebookUrl}
     }[0]
   `, { slug });
 };
