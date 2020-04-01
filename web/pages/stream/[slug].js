@@ -88,7 +88,7 @@ const Stream = (props) => {
             <BlockContent blocks={description} serializers={serializers} />
           </div>
         </div>
-          {organizer.length > 0 && <div className={styles.organizers}><h3>Denne konserten er arrangert av:</h3><ul>{renderOrganizers(organizer)}</ul></div>}
+          {organizer != null && <div className={styles.organizers}><h3>Denne konserten er arrangert av:</h3><ul>{renderOrganizers(organizer)}</ul></div>}
       </section>
     </article>
   );
