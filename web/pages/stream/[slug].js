@@ -24,7 +24,6 @@ const renderStream = (props) => {
 };
 
 const renderOrganizers = (organizers) => {
-  console.log(organizers);
   if (organizers.length === 0) return null;
 
   return organizers.map(organizer => {
