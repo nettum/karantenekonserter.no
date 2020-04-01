@@ -16,7 +16,7 @@ const Footer = () => (
       <a className={styles.next} href="https://zeit.co/solutions/nextjs" rel="noopener"><NextLogo /></a>
       <a href="https://zeit.co/home" rel="noopener"><ZeitLogo /></a>
     </div>
-    <small>Siden bruker google analytics til statistikk</small>
+    <small>Siden bruker informasjonskapsler (ga) til statistikk</small>
   </footer>
 );
 
