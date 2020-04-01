@@ -4,7 +4,7 @@ import styles from './header.module.css';
 
 const Header = () => (
   <header className={styles.main}>
-    <Link className={styles.logo} href="/">
+    <Link href="/">
       <a>
         <div className={styles.emoji}>
           <img src="/heart.png" alt="Hjerte emoji ❤️" />
