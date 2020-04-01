@@ -28,7 +28,6 @@ const renderOrganizers = (organizers) => {
   if (organizers.length === 0) return null;
 
   return organizers.map(organizer => {
-    console.log(organizer.facebookUrl);
     return (
       <li>
         <a href={organizer.facebookUrl} target="_blank" rel="noopener"><span>{organizer.title}</span></a>
