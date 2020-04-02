@@ -9,7 +9,7 @@ const renderTimer = ({ days, hours, minutes, seconds, completed }) => {
   } else {
     return (
       <small className={styles.upcoming}>
-        {zeroPad((days * 24) + hours)}:{zeroPad(minutes)}
+        {zeroPad((days * 24) + hours)}:{zeroPad(minutes)}:{zeroPad(seconds)}
       </small>
     );
   }
