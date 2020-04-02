@@ -1,0 +1,32 @@
+.item {
+  position: relative;
+  margin-bottom: 20px;
+}
+.item img {
+  width: 100%;
+  height: auto;
+}
+.item h3 {
+  font-size: 16px;
+}
+.item small {
+  font-size: 12px;
+}
+
+.item .upcoming {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: white;
+  color: black;
+  padding: 5px;
+}
+
+.item .streaming {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: linear-gradient(135deg,  #fedc45 0%,#fb7099 100%);
+  color: black;
+  padding: 5px;
+}
