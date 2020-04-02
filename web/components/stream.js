@@ -25,7 +25,7 @@ const Stream = ({ stream, status, idx })  => {
           {poster && <img src={`${poster}?w=350&h=197&crop=center&fit=crop`} alt={`Skjermbilde av ${title}`} />}
           <h3>{title}</h3>
           <small>{new Intl.DateTimeFormat('nb-NO', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'} ).format(new Date(streamDate))}</small>
-          {(status === 'Neste ut' && idx < 5) && <Countdown date={new Date(streamDate)} renderer={renderTimer} />}
+          {(status === 'Neste ut' && idx < 4) && <Countdown date={new Date(streamDate)} renderer={renderTimer} />}
         </a>
       </Link>
     </div>
