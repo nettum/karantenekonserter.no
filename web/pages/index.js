@@ -5,47 +5,48 @@ import client from '../client'
 import styles from './index.module.css';
 
 
-const renderItem = (item)  => {
-  const { _id, title, slug, poster, streamDate, facebookUrl, youtubeUrl } = item;
+const renderStreams = (streams, status) => {
+  if (streams.length === 0) return null;
+  return (
+    <section>
+      <h2>{status} <small>({streams.length})</small></h2>
+      <div className={styles.streams}>
+        {streams.map(stream => renderItem(stream, status))}
+      </div>
+    </section>
+  );
 
-  const airDate = new Date(streamDate);
-  const now = new Date();
-  const diff = (((now - airDate) / 1000) / 60);
+};
+
+const renderItem = (item, status)  => {
+  const { _id, title, slug, poster, streamDate, facebookUrl, youtubeUrl } = item;
 
   return (
     <div key={_id} className={styles.item}>
       <Link href="/stream/[slug]" as={`/stream/${slug.current}`}>
         <a>
           {poster && <img src={`${poster}?w=350&h=197&crop=center&fit=crop`} alt={`Skjermbilde av ${title}`} />}
-          <h2>{title}</h2>
+          <h3>{title}</h3>
           <small>{new Intl.DateTimeFormat('nb-NO', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'} ).format(new Date(streamDate))}</small>
-          {now < airDate && <small className={styles.upcoming}>Kommende</small>}
-          {
-            diff > 0 &&
-            diff < 45 &&
-            (facebookUrl != null  || youtubeUrl != null) &&
-            <small className={styles.streaming}>
-              Strømmes nå!
-            </small>
-          }
+          {/* {status === 'Neste ut' && <small className={styles.upcoming}>Kommende</small>} */}
         </a>
       </Link>
     </div>
   )
 };
 
-const Index = (props) => {
-  const { streams = [] } = props;
-
+const Index = ({streaming, upcoming, archive}) => {
   return (
-    <section className={styles.streams}>
-      {streams.map(item => (renderItem(item)))}
-    </section>
+    <div className={styles.main}>
+      {renderStreams(streaming, 'Strømmes nå')}
+      {renderStreams(upcoming, 'Neste ut')}
+      {renderStreams(archive, 'Arkiv')}
+    </div>
   )
 }
 
-Index.getInitialProps = async () => ({
-  streams: await client.fetch(groq`
+Index.getInitialProps = async () => {
+  const streams = await client.fetch(groq`
     *[_type == "stream"]{
       _id,
       title,
@@ -55,7 +56,32 @@ Index.getInitialProps = async () => ({
       facebookUrl,
       youtubeUrl,
     }|order(streamDate desc)
-  `)
-});
+  `);
+
+  if (streams.length < 0) {
+    return;
+  }
+
+  // Split result from sanity into 3 different arrays based on event time
+  const now = new Date();
+  let streaming = [];
+  let upcoming = [];
+  let archive = [];
+  for (const stream of streams) {
+    const airDate = new Date(stream.streamDate);
+    const diff = (((now - airDate) / 1000) / 60);
+    if (now < airDate) {
+      upcoming.push(stream);
+    } else if (diff >= 0 && diff <= 60) {
+      streaming.push(stream);
+    } else {
+      upcoming = upcoming.reverse();
+      const elemsToRemove = streams.length - (upcoming.length + streaming.length);
+      archive = streams.splice(-elemsToRemove);
+    }
+  };
+
+  return { streaming, upcoming, archive };
+};
 
 export default Index;
