@@ -72,7 +72,7 @@ Index.getInitialProps = async () => {
     const diff = (((now - airDate) / 1000) / 60);
     if (now < airDate) {
       upcoming.push(stream);
-    } else if (diff >= 0 && diff <= 60) {
+    } else if (diff >= 0 && diff < 60) {
       streaming.push(stream);
     } else {
       upcoming = upcoming.reverse();
