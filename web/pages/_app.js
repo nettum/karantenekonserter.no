@@ -9,7 +9,7 @@ import * as gtag from '../utils/gtag'
 
 import Layout from '../components/layout';
 
-Router.events.on('routeChangeComplete', url => gtag.pageview(url));
+Router.events.on('routeChangeComplete', url => {  window.scrollTo(0, 0); gtag.pageview(url); });
 
 function MyApp({ Component, pageProps }) {
   return (
