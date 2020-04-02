@@ -28,7 +28,7 @@ const Streams = props => {
         {status === 'Arkiv' && <input type="text" placeholder="Søk" value={query} onChange={handleSearch} />}
       </div>
       <div className={styles.streams}>
-        {streams.map((stream, idx) => <Stream stream={stream} status={status} idx={idx} />)}
+        {streams.map(stream => <Stream stream={stream} status={status} />)}
       </div>
     </section>
   );
