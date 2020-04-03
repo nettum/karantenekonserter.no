@@ -19,8 +19,6 @@ const Streams = props => {
     )
   );
 
-  console.log('rerender');
-
   return (
     <section>
       <div className={styles.sectionheader}>
