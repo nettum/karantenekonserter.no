@@ -20,7 +20,7 @@ Index.getInitialProps = async () => {
       _id,
       title,
       slug,
-      "poster": poster.asset->url,
+      poster,
       streamDate,
       facebookUrl,
       youtubeUrl,

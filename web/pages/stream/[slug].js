@@ -5,6 +5,7 @@ import BlockContent from '@sanity/block-content-to-react';
 
 import FacebookVideo from '../../components/facebookvideo';
 import YoutubeVideo from '../../components/youtubevideo';
+import { urlFor } from '../../utils/imageHelper';
 
 import styles from './stream.module.css';
 
@@ -12,8 +13,9 @@ const renderStream = (props) => {
   const { title, facebookUrl, youtubeUrl, poster } = props;
 
   if (!facebookUrl && !youtubeUrl) {
-    return poster && <img src={`${poster}?w=1280&crop=center&fit=crop`} alt={`Skjermbilde av ${title}`} />
+    return poster && <img src={urlFor(poster).width(1280).height(720).url()} alt={`Skjermbilde av ${title}`} />
   }
+
 
   return (
     <>
@@ -68,7 +70,7 @@ const Stream = (props) => {
           description: 'STØTT NORSKE ARTISTER! Se opptak og hvilke konserter som kommer for strømming på karantenekonserter.no',
           images: [
             {
-              url: `${poster}?w=1200&h=630&crop=center&fit=crop`,
+              url: urlFor(poster).width(1200).height(630).url(),
               width: 1200,
               height: 630,
             },
@@ -101,7 +103,7 @@ Stream.getInitialProps = async (context) => {
       _id,
       title,
       slug,
-      "poster": poster.asset->url,
+      poster,
       streamDate,
       facebookUrl,
       youtubeUrl,

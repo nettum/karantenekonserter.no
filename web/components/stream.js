@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import Countdown,  { zeroPad } from 'react-countdown'
 
+import { urlFor } from '../utils/imageHelper';
+
 import styles from './stream.module.css';
 
 const renderTimer = ({ days, hours, minutes, seconds, completed }) => {
@@ -22,7 +24,7 @@ const Stream = ({ stream, status })  => {
     <div key={_id} className={styles.item}>
       <Link href="/stream/[slug]" as={`/stream/${slug.current}`}>
         <a>
-          {poster && <img src={`${poster}?w=350&h=197&crop=center&fit=crop`} alt={`Skjermbilde av ${title}`} loading="lazy" />}
+          {poster && <img src={urlFor(poster).width(350).height(197).url()} alt={`Skjermbilde av ${title}`} loading="lazy" />}
           <h3>{title}</h3>
           <small>{new Intl.DateTimeFormat('nb-NO', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'} ).format(new Date(streamDate))}</small>
           {status === 'Neste ut' && <Countdown date={new Date(streamDate)} renderer={renderTimer} />}
