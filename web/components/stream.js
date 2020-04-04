@@ -11,11 +11,32 @@ const renderTimer = ({ days, hours, minutes, seconds, completed }) => {
   } else {
     return (
       <small className={styles.upcoming}>
-        {zeroPad((days * 24) + hours)}:{zeroPad(minutes)}:{zeroPad(seconds)}
+        {zeroPad(hours)}:{zeroPad(minutes)}:{zeroPad(seconds)}
       </small>
     );
   }
 };
+
+const renderNextLabel = (streamDate) => {
+  const now = new Date();
+  const airDate = new Date(streamDate);
+  const diffHours = Math.abs(airDate - now) / 36e5;
+
+  let nextMarkup = false;
+  if (diffHours < 24) {
+    nextMarkup =
+      <small className={styles.upcoming}>
+        <Countdown date={airDate} renderer={renderTimer} />
+      </small>
+  } else {
+    nextMarkup =
+    <small className={styles.upcoming}>
+      {new Intl.DateTimeFormat('nb-NO', { weekday: 'long', hour: 'numeric', minute: 'numeric'} ).format(new Date(airDate))}
+    </small>
+  }
+
+  return nextMarkup
+}
 
 const Stream = ({ stream, status })  => {
   const { _id, title, slug, poster, streamDate } = stream;
@@ -27,7 +48,7 @@ const Stream = ({ stream, status })  => {
           {poster && <img src={urlFor(poster).width(350).height(197).url()} alt={`Skjermbilde av ${title}`} loading="lazy" />}
           <h3>{title}</h3>
           <small>{new Intl.DateTimeFormat('nb-NO', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'} ).format(new Date(streamDate))}</small>
-          {status === 'Neste ut' && <Countdown date={new Date(streamDate)} renderer={renderTimer} />}
+          {status === 'Neste ut' && renderNextLabel(streamDate)}
         </a>
       </Link>
     </div>
