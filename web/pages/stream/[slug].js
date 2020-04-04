@@ -30,7 +30,7 @@ const renderOrganizers = (organizers) => {
 
   return organizers.map(organizer => {
     return (
-      <li>
+      <li key={organizer._id}>
         <a href={organizer.facebookUrl} target="_blank" rel="noopener"><span>{organizer.title}</span></a>
         <img src={`${organizer.logo}?w=50&h=50&crop=center&fit=crop`} alt={`Logo, ${organizer.title}`} />
       </li>
