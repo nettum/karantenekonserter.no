@@ -31,7 +31,7 @@ const renderNextLabel = (streamDate) => {
   } else {
     nextMarkup =
     <small className={styles.upcoming}>
-      {new Intl.DateTimeFormat('nb-NO', { weekday: 'long', hour: 'numeric', minute: 'numeric'} ).format(new Date(airDate))}
+      {new Intl.DateTimeFormat('nb-NO', {  weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' } ).format(new Date(airDate))}
     </small>
   }
 
