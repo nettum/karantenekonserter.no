@@ -20,6 +20,7 @@ const renderTimer = ({ days, hours, minutes, seconds, completed }) => {
 const renderNextLabel = (streamDate) => {
   const now = new Date();
   const airDate = new Date(streamDate);
+  airDate.setSeconds(0);
   const diffHours = Math.abs(airDate - now) / 36e5;
 
   let nextMarkup = false;
@@ -31,7 +32,7 @@ const renderNextLabel = (streamDate) => {
   } else {
     nextMarkup =
     <small className={styles.upcoming}>
-      {new Intl.DateTimeFormat('nb-NO', {  weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' } ).format(new Date(airDate))}
+      {new Intl.DateTimeFormat('nb-NO', {  weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' } ).format(airDate)}
     </small>
   }
 
