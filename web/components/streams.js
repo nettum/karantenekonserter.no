@@ -6,7 +6,6 @@ import styles from './streams.module.css';
 const Streams = props => {
   const { status } = props;
   const [query, setSearchQuery] = useState('');
-  console.log(query);
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
@@ -26,7 +25,7 @@ const Streams = props => {
         {status === 'Arkiv' && <input type="text" placeholder="Søk" value={query} onChange={handleSearch} />}
       </div>
       <div className={styles.streams}>
-        {streams.map(stream => <Stream stream={stream} status={status} />)}
+        {streams.map(stream => <Stream key={stream._id} stream={stream} status={status} />)}
       </div>
     </section>
   );

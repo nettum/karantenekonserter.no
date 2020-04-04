@@ -12,7 +12,7 @@ const Footer = () => (
       <span>🤘</span>
     </div>
     <div className={styles.content}>
-      <a href="https://www.sanity.io/" rel="noopener"><SanityLogo /></a>,
+      <a href="https://www.sanity.io/" rel="noopener"><SanityLogo /></a>
       <a className={styles.next} href="https://zeit.co/solutions/nextjs" rel="noopener"><NextLogo /></a>
       <a href="https://zeit.co/home" rel="noopener"><ZeitLogo /></a>
     </div>
