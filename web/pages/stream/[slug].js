@@ -24,7 +24,7 @@ const renderOrganizers = (organizers) => {
 };
 
 const Stream = (props) => {
-  const { title, slug, poster, facebookUrl, youtubeUrl, description, streamDate, organizer } = props;
+  let { title, slug, poster, facebookUrl, youtubeUrl, description, streamDate, organizer } = props;
   const [realtimeFields, updateFields] = useState({ title, facebookUrl, youtubeUrl, description });
 
   useEffect(() => {
