@@ -23,7 +23,7 @@ const Streams = props => {
       stream.title.toLowerCase().includes(query.toLocaleLowerCase())
     )
   } else {
-    filteredStreams = limit !== null ?  props.streams.slice(0, offset) : props.streams;
+    filteredStreams = offset !== null ?  props.streams.slice(0, offset) : props.streams;
   }
 
   return (
