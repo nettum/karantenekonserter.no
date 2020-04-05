@@ -1,3 +1,7 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
 .sectionheader {
   display: flex;
   justify-content: space-between;
@@ -25,6 +29,30 @@
   justify-content: center;
 }
 
+.loadmore {
+  position: relative;
+  background: none;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 18px;
+  margin: 0 auto;
+  padding: 10px;
+  margin-bottom: 50px;
+  cursor: pointer;
+}
+.loadmore::after {
+  position: absolute;
+  top: 32px;
+  left: calc(50% - 6.5px);
+  content: "";
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
 @media (min-width: 715px) {
   .streams {
     padding: 0;

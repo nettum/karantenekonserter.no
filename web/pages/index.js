@@ -8,8 +8,8 @@ const Index = ({streaming, upcoming, archive}) => {
   return (
     <div className={styles.main}>
       {streaming.length > 0 && <Streams streams={streaming} status='Strømmes nå' />}
-      {upcoming.length > 0 && <Streams streams={upcoming} status='Neste ut' />}
-      {archive.length > 0 && <Streams streams={archive} status='Arkiv' />}
+      {upcoming.length > 0 && <Streams streams={upcoming} status='Neste ut' limit={8} />}
+      {archive.length > 0 && <Streams streams={archive} status='Arkiv' limit={52} />}
     </div>
   )
 }
