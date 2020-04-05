@@ -2,9 +2,16 @@
   position: relative;
   margin-bottom: 20px;
 }
-.item img {
+.item .imgwrapper  {
+  overflow: hidden;
+}
+.item .imgwrapper img {
   width: 100%;
   height: auto;
+  transition: transform .5s ease;
+}
+.item .imgwrapper:hover img {
+  transform: scale(1.05);
 }
 .item h3 {
   font-size: 16px;
