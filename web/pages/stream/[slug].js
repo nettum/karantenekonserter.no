@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { NextSeo } from 'next-seo';
 
 import client from '../../client';
@@ -8,22 +9,6 @@ import YoutubeVideo from '../../components/youtubevideo';
 import { urlFor } from '../../utils/imageHelper';
 
 import styles from './stream.module.css';
-
-const renderStream = (props) => {
-  const { title, facebookUrl, youtubeUrl, poster } = props;
-
-  if (!facebookUrl && !youtubeUrl) {
-    return poster && <img src={urlFor(poster).width(1280).height(720).url()} alt={`Skjermbilde av ${title}`} />
-  }
-
-
-  return (
-    <>
-      {facebookUrl && <FacebookVideo url={facebookUrl} />}
-      {youtubeUrl && <YoutubeVideo url={youtubeUrl} />}
-    </>
-  );
-};
 
 const renderOrganizers = (organizers) => {
   if (organizers.length === 0) return null;
@@ -39,7 +24,17 @@ const renderOrganizers = (organizers) => {
 };
 
 const Stream = (props) => {
-  const { title, slug, poster, streamDate, description, organizer } = props;
+  const { title, slug, poster, facebookUrl, youtubeUrl, description, streamDate, organizer } = props;
+  const [realtimeFields, updateFields] = useState({ title, facebookUrl, youtubeUrl, description });
+
+  useEffect(() => {
+    client.listen('*[_type == "stream" && slug.current == $slug]', { slug: slug.current })
+    .subscribe(update => {
+      if (update.type === 'mutation' && update.transition === 'update') {
+        updateFields({ title, facebookUrl, youtubeUrl, description } = update.result);
+      }
+    });
+  });
 
   const readableDate = new Intl.DateTimeFormat('nb-NO', {
     year: 'numeric',
@@ -61,12 +56,12 @@ const Stream = (props) => {
   return (
     <article className={styles.main}>
       <NextSeo
-        title={`${title} | karantenekonserter.no`}
-        description={`Se ${title} og flere konserter på karantenekonserter.no`}
+        title={`${realtimeFields.title} | karantenekonserter.no`}
+        description={`Se ${realtimeFields.title} og flere konserter på karantenekonserter.no`}
         openGraph={{
           type: 'website',
           url: `https://karantenekonserter.no/stream/${slug.current}`,
-          title: `${title} | karantenekonserter.no`,
+          title: `${realtimeFields.title} | karantenekonserter.no`,
           description: 'STØTT NORSKE ARTISTER! Se opptak og hvilke konserter som kommer for strømming på karantenekonserter.no',
           images: [
             {
@@ -77,20 +72,26 @@ const Stream = (props) => {
           ],
         }}
       />
-      {renderStream(props)}
+      {!realtimeFields.facebookUrl && !realtimeFields.youtubeUrl && poster && <img src={urlFor(poster).width(1280).height(720).url()} alt={`Skjermbilde av ${realtimeFields.title}`} />}
+      {realtimeFields.facebookUrl && <FacebookVideo url={realtimeFields.facebookUrl} />}
+      {realtimeFields.youtubeUrl && <YoutubeVideo url={realtimeFields.youtubeUrl} />}
       <section>
         <div>
           <div className={styles.intro}>
             <div>
-              <h1>{title}</h1>
+              <h1>{realtimeFields.title}</h1>
               <small>{readableDate}</small>
             </div>
           </div>
           <div className={styles.info}>
-            <BlockContent blocks={description} serializers={serializers} />
+            <BlockContent blocks={realtimeFields.description} serializers={serializers} />
           </div>
         </div>
-          {organizer != null && <div className={styles.organizers}><h3>Denne konserten er arrangert av:</h3><ul>{renderOrganizers(organizer)}</ul></div>}
+          {organizer != null &&
+            <div className={styles.organizers}>
+              <h3>Denne konserten er arrangert av:</h3>
+              <ul>{renderOrganizers(organizer)}</ul>
+            </div>}
       </section>
     </article>
   );
@@ -98,6 +99,7 @@ const Stream = (props) => {
 
 Stream.getInitialProps = async (context) => {
   const { slug = '' } = context.query;
+
   return await client.fetch(`
     *[_type == "stream" && slug.current == $slug]{
       _id,
