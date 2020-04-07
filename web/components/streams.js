@@ -35,8 +35,8 @@ const Streams = props => {
             type="text"
             placeholder="Søk"
             value={query}
-            onChange={handleSearch} o
-            nFocus={handleFocus}
+            onChange={handleSearch}
+            onFocus={handleFocus}
           />}
       </div>
       <div className={styles.streams}>
