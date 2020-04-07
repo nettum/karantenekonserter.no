@@ -30,12 +30,20 @@ const Streams = props => {
     <section className={styles.wrapper}>
       <div className={styles.sectionheader}>
         <h2>{status} <small>({!query ? streams.length : filteredStreams.length})</small></h2>
-        {status === 'Arkiv' && <input ref={searchInput} type="text" placeholder="Søk" value={query} onChange={handleSearch} onFocus={handleFocus} />}
+        {status === 'Arkiv' &&
+          <input ref={searchInput}
+            type="text"
+            placeholder="Søk"
+            value={query}
+            onChange={handleSearch} o
+            nFocus={handleFocus}
+          />}
       </div>
       <div className={styles.streams}>
         {filteredStreams.map(stream => <Stream key={stream._id} stream={stream} status={status} />)}
       </div>
-      {offset && !query &&  (filteredStreams.length < streams.length) && <button className={styles.loadmore} onClick={() => loadMore(offset + offset)}>Last flere</button>}
+      {offset && !query &&  (filteredStreams.length < streams.length) &&
+        <button className={styles.loadmore} onClick={() => loadMore(offset + offset)}>Last flere</button>}
     </section>
   );
 };
