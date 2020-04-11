@@ -26,9 +26,7 @@ const renderNextLabel = (streamDate) => {
   let nextMarkup = false;
   if (diffHours < 24) {
     nextMarkup =
-      <small className={styles.upcoming}>
-        <Countdown date={airDate} renderer={renderTimer} />
-      </small>
+      <Countdown date={airDate} renderer={renderTimer} />
   } else {
     nextMarkup =
     <small className={styles.upcoming}>
