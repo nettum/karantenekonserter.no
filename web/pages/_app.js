@@ -14,24 +14,24 @@ Router.events.on('routeChangeComplete', url => {  window.scrollTo(0, 0); gtag.pa
 function MyApp({ Component, pageProps }) {
   return (
     <>
-        <NextSeo
-          title="karantenekonserter.no"
-          description="karantenekonserter.no er en nettside som samler alle norske konsertstrømmer på en og samme plass."
-          openGraph={{
-            type: 'website',
-            url: 'https://karantenekonserter.no',
-            title: 'karantenekonserter.no',
-            description: 'STØTT NORSKE ARTISTER! Se opptak og hvilke konserter som kommer for strømming på karantenekonserter.no',
-            images: [
-              {
-                url: 'https://karantenekonserter.no/shareimage.png',
-                width: 1200,
-                height: 630,
-              },
-            ],
-          }}
-        />
-        <Head>
+      <NextSeo
+        title="karantenekonserter.no"
+        description="karantenekonserter.no er en nettside som samler alle norske konsertstrømmer på en og samme plass."
+        openGraph={{
+          type: 'website',
+          url: 'https://karantenekonserter.no',
+          title: 'karantenekonserter.no',
+          description: 'STØTT NORSKE ARTISTER! Se opptak og hvilke konserter som kommer for strømming på karantenekonserter.no',
+          images: [
+            {
+              url: 'https://karantenekonserter.no/shareimage.png',
+              width: 1200,
+              height: 630,
+            },
+          ],
+        }}
+      />
+      <Head>
         <script
           async
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
