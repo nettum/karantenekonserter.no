@@ -4,12 +4,12 @@ import client from '../client'
 import Streams from './../components/streams';
 import styles from './index.module.css';
 
-const Index = ({streaming, upcoming, archive}) => {
+const Index = ({streaming, upcoming, archive, concepts}) => {
   return (
     <div className={styles.main}>
       {streaming.length > 0 && <Streams streams={streaming} status='Strømmes nå' />}
       {upcoming.length > 0 && <Streams streams={upcoming} status='Neste ut' limit={8} />}
-      {archive.length > 0 && <Streams streams={archive} status='Arkiv' limit={52} />}
+      {archive.length > 0 && <Streams streams={archive} status='Arkiv' limit={52} showFilters={true} concepts={concepts} />}
     </div>
   )
 }
@@ -24,12 +24,19 @@ Index.getInitialProps = async () => {
       streamDate,
       facebookUrl,
       youtubeUrl,
+      organizer[]->{'slug': slug.current}
     }|order(streamDate desc)
   `);
 
   if (streams.length < 0) {
     return;
   }
+
+  const concepts = await client.fetch(groq`
+    *[_type == "organizer"]{
+      title, "slug": slug.current
+    }|order(slug.current asc)
+  `);
 
   // Split result from sanity into 3 different arrays based on event time
   const now = new Date();
@@ -50,7 +57,7 @@ Index.getInitialProps = async () => {
     }
   };
 
-  return { streaming, upcoming, archive };
+  return { streaming, upcoming, archive, concepts };
 };
 
 export default Index;
