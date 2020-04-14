@@ -20,7 +20,7 @@ const renderTimer = ({ hours, minutes, seconds, completed }) => {
 const renderNextLabel = (streamDate) => {
   const now = new Date();
   const airDate = new Date(streamDate);
-  airDate.setSeconds(0);
+  airDate.setSeconds(0); // ¯\_(ツ)_/¯. don't ask.
   const diffHours = Math.abs(airDate - now) / 36e5;
 
   let nextMarkup = false;
