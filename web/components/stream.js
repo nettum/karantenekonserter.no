@@ -5,7 +5,7 @@ import { urlFor } from '../utils/imageHelper';
 
 import styles from './stream.module.css';
 
-const renderTimer = ({ days, hours, minutes, seconds, completed }) => {
+const renderTimer = ({ hours, minutes, seconds, completed }) => {
   if (completed) {
     return null;
   } else {
