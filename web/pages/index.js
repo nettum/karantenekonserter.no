@@ -16,7 +16,6 @@ const Index = (props) => {
   useEffect(() => {
     const getInitialStreams = async () => {
       setConcepts(await getConcepts());
-      setStreams(await getStreams(concept, search))
     };
     getInitialStreams();
   }, []);
@@ -25,9 +24,7 @@ const Index = (props) => {
     const updateStreams = async () => {
       setStreams(await getStreams(concept, search))
     }
-    if (concept !== props.concept || search !== props.search) {
-      updateStreams();
-    };
+    updateStreams();
   }, [concept, search]);
 
   const handleSearch = (e) => {
