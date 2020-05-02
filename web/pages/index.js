@@ -6,22 +6,28 @@ import Streams from './../components/streams';
 import styles from './index.module.css';
 
 const Index = (props) => {
-  const { concepts, } = props;
   const [search, setSearchQuery] = useState(props.search);
   const [concept, setConcept] = useState(props.concept);
-  const [streams, setStreams] = useState(props.streams);
+  const [streams, setStreams] = useState([]);
+  const [concepts, setConcepts] = useState([]);
 
-  let { upcoming, streaming, archive } = streams;
+  let { upcoming = [], streaming = [], archive = [] } = streams;
+
+  useEffect(() => {
+    const getInitialStreams = async () => {
+      setConcepts(await getConcepts());
+      setStreams(await getStreams(concept, search))
+    };
+    getInitialStreams();
+  }, []);
 
   useEffect(() => {
     const updateStreams = async () => {
-      console.log('search effect');
       setStreams(await getStreams(concept, search))
     }
     if (concept !== props.concept || search !== props.search) {
       updateStreams();
-    }
-
+    };
   }, [concept, search]);
 
   const handleSearch = (e) => {
@@ -55,7 +61,7 @@ const Index = (props) => {
       <form>
         <select name="concept" onChange={handleConcept} value={concept}>
           <option value="">Filtrer på konsept/scene...</option>
-            {concepts.map(concept =>
+            {concepts && concepts.map(concept =>
               <option key={concept.slug} value={concept.slug}>{concept.title}</option>
             )}
         </select>
@@ -76,10 +82,8 @@ const Index = (props) => {
 
 export async function getServerSideProps(context) {
   const { concept = null, search = null } = context.query;
-  const concepts = await getConcepts();
-  const streams = await getStreams(concept, search);
 
-  return { props: { streams, concepts, concept, search } };
+  return { props: { concept, search } };
 };
 
 export default Index;
