@@ -1,63 +1,85 @@
-import groq from 'groq'
-import client from '../client'
+import Router from 'next/router'
+import { useState, useEffect } from 'react';
 
+import { getConcepts, getStreams } from '../utils/apiHelper';
 import Streams from './../components/streams';
 import styles from './index.module.css';
 
-const Index = ({streaming, upcoming, archive, concepts}) => {
-  return (
-    <div className={styles.main}>
-      {streaming.length > 0 && <Streams streams={streaming} status='Strømmes nå' />}
-      {upcoming.length > 0 && <Streams streams={upcoming} status='Neste ut' limit={8} />}
-      {archive.length > 0 && <Streams streams={archive} status='Arkiv' limit={52} showFilters={true} concepts={concepts} />}
-    </div>
-  )
-}
+const Index = (props) => {
+  const { concepts, } = props;
+  const [search, setSearchQuery] = useState(props.search);
+  const [concept, setConcept] = useState(props.concept);
+  const [streams, setStreams] = useState(props.streams);
 
-Index.getInitialProps = async () => {
-  const streams = await client.fetch(groq`
-    *[_type == "stream"]{
-      _id,
-      title,
-      slug,
-      poster,
-      streamDate,
-      facebookUrl,
-      youtubeUrl,
-      organizer[]->{'slug': slug.current}
-    }|order(streamDate desc)
-  `);
+  let { upcoming, streaming, archive } = streams;
 
-  if (streams.length < 0) {
-    return;
+  useEffect(() => {
+    const updateStreams = async () => {
+      console.log('search effect');
+      setStreams(await getStreams(concept, search))
+    }
+    if (concept !== props.concept || search !== props.search) {
+      updateStreams();
+    }
+
+  }, [concept, search]);
+
+  const handleSearch = (e) => {
+    const searchParam = e.target.value || null;
+    setSearchQuery(searchParam);
+    let query = searchParam ? { search: searchParam } : {};
+    if (concept) {
+      query.concept = concept;
+    }
+    Router.push({
+      pathname: '/',
+      query: query,
+    });
   }
 
-  const concepts = await client.fetch(groq`
-    *[_type == "organizer"]{
-      title, "slug": slug.current
-    }|order(slug.current asc)
-  `);
-
-  // Split result from sanity into 3 different arrays based on event time
-  const now = new Date();
-  let streaming = [];
-  let upcoming = [];
-  let archive = [];
-  for (const stream of streams) {
-    const airDate = new Date(stream.streamDate);
-    const diff = (((now - airDate) / 1000) / 60);
-    if (now < airDate) {
-      upcoming.push(stream);
-    } else if (diff >= 0 && diff < 60) {
-      streaming.push(stream);
-    } else {
-      upcoming = upcoming.reverse();
-      const elemsToRemove = streams.length - (upcoming.length + streaming.length);
-      archive = streams.splice(-elemsToRemove);
+  const handleConcept = (e) => {
+    const conceptParam = e.target.value || null;
+    setConcept(conceptParam);
+    let query = conceptParam ? { concept: conceptParam } : {};
+    if (search) {
+      query.search = search;
     }
-  };
+    Router.push({
+      pathname: '/',
+      query: query,
+    });
+  }
 
-  return { streaming, upcoming, archive, concepts };
+  return (
+    <div className={styles.main}>
+      <form>
+        <select name="concept" onChange={handleConcept} value={concept}>
+          <option value="">Filtrer på konsept/scene...</option>
+            {concepts.map(concept =>
+              <option key={concept.slug} value={concept.slug}>{concept.title}</option>
+            )}
+        </select>
+        <input
+          name="search"
+          type="text"
+          placeholder="Søk"
+          value={search}
+          onChange={handleSearch}
+        />
+      </form>
+      {streaming.length > 0 && <Streams streams={streaming} status='Strømmes nå' />}
+      {upcoming.length > 0 && <Streams streams={upcoming} status='Neste ut' limit={8} />}
+      {archive.length > 0 && <Streams streams={archive} status='Arkiv' limit={52} />}
+    </div>
+  )
+};
+
+Index.getInitialProps = async (context) => {
+  const { concept = null, search = null } = context.query;
+  const concepts = await getConcepts();
+  const streams = await getStreams(concept, search);
+
+  return { streams, concepts, concept, search };
 };
 
 export default Index;

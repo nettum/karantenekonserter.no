@@ -23,14 +23,6 @@
   margin-top: 5px;
   display: flex;
 }
-.sectionheader input, .sectionheader select {
-  padding: 5px;
-  background-color: white;
-  width: 50%;
-}
-.sectionheader select {
-  margin-right: 5px;
-}
 .main section {
   margin-bottom: 40px;
 }

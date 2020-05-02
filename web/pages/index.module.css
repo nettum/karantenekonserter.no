@@ -2,3 +2,27 @@
   max-width: 1460px;
   margin: 0 auto;
 }
+
+.main form {
+  margin-left: 7.5px;
+  margin-right: 7.5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0 50px 0;
+}
+
+.main input, .main select {
+  width: 47%;
+  height: 40px;
+  border: none;
+  background-color: #d3d3d3;
+  padding: 0 5px;
+}
+
+@media (min-width: 715px) {
+  .main form {
+    margin: 0 auto;
+    max-width: 350px;
+  }
+}
