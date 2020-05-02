@@ -74,12 +74,12 @@ const Index = (props) => {
   )
 };
 
-Index.getInitialProps = async (context) => {
+export async function getServerSideProps(context) {
   const { concept = null, search = null } = context.query;
   const concepts = await getConcepts();
   const streams = await getStreams(concept, search);
 
-  return { streams, concepts, concept, search };
+  return { props: { streams, concepts, concept, search } };
 };
 
 export default Index;
