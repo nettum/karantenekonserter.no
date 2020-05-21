@@ -1,4 +1,4 @@
-import styles from './facebookvideo.module.css'
+import styles from './video.module.css'
 
 const FacebookVideo = props => (
   <div className={styles.container}>

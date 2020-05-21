@@ -64,6 +64,12 @@ export default {
       description: 'If the concert is a youtube stream, paste the youtube URL for the video here'
     },
     {
+      name: 'vimeoUrl',
+      type: 'url',
+      title: 'Vimeo URL',
+      description: 'If the concert is a vimeo stream, paste the vimeo URL for the video here'
+    },
+    {
       title: 'Description',
       name: 'description',
       type: 'array',

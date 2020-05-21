@@ -6,6 +6,7 @@ import BlockContent from '@sanity/block-content-to-react';
 
 import FacebookVideo from '../../components/facebookvideo';
 import YoutubeVideo from '../../components/youtubevideo';
+import VimeoVideo from '../../components/vimeovideo';
 import { urlFor } from '../../utils/imageHelper';
 
 import styles from './stream.module.css';
@@ -24,14 +25,24 @@ const renderOrganizers = (organizers) => {
 };
 
 const Stream = (props) => {
-  let { title, slug, poster, facebookUrl, youtubeUrl, description, streamDate, organizer } = props;
-  const [realtimeFields, updateFields] = useState({ title, facebookUrl, youtubeUrl, description });
+  let {
+    title,
+    slug,
+    poster,
+    facebookUrl,
+    youtubeUrl,
+    vimeoUrl,
+    description,
+    streamDate,
+    organizer
+  } = props;
+  const [realtimeFields, updateFields] = useState({ title, facebookUrl, youtubeUrl, vimeoUrl, description });
 
   useEffect(() => {
     client.listen('*[_type == "stream" && slug.current == $slug]', { slug: slug.current })
     .subscribe(update => {
       if (update.type === 'mutation' && update.transition === 'update') {
-        updateFields({ title, facebookUrl, youtubeUrl, description } = update.result);
+        updateFields({ title, facebookUrl, youtubeUrl, vimeoUrl, description } = update.result);
       }
     });
   });
@@ -72,9 +83,10 @@ const Stream = (props) => {
           ],
         }}
       />
-      {!realtimeFields.facebookUrl && !realtimeFields.youtubeUrl && poster && <img src={urlFor(poster).width(1280).height(720).url()} alt={`Skjermbilde av ${realtimeFields.title}`} />}
+      {!realtimeFields.facebookUrl && !realtimeFields.youtubeUrl && !realtimeFields.vimeoUrl && poster && <img src={urlFor(poster).width(1280).height(720).url()} alt={`Skjermbilde av ${realtimeFields.title}`} />}
       {realtimeFields.facebookUrl && <FacebookVideo url={realtimeFields.facebookUrl} />}
       {realtimeFields.youtubeUrl && <YoutubeVideo url={realtimeFields.youtubeUrl} />}
+      {realtimeFields.vimeoUrl && <VimeoVideo url={realtimeFields.vimeoUrl} />}
       <section>
         <div>
           <div className={styles.intro}>
@@ -109,6 +121,7 @@ Stream.getInitialProps = async (context) => {
       streamDate,
       facebookUrl,
       youtubeUrl,
+      vimeoUrl,
       description,
       organizer[]->{title, 'logo': logo.asset->url, facebookUrl}
     }[0]

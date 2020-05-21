@@ -1,15 +1,15 @@
-import getYouTubeID from 'get-youtube-id';
+import getVideoId from 'get-video-id';
 
-import styles from './youtubevideo.module.css'
+import styles from './video.module.css'
 
 const YoutubeVideo = props => {
 
-  const youtubeId = getYouTubeID(props.url);
+  const youtube = getVideoId(props.url);
 
-  return (youtubeId ?
+  return (youtube ?
     <div className={styles.container}>
       <iframe
-        src={`https://www.youtube-nocookie.com/embed/${youtubeId}`}
+        src={`https://www.youtube-nocookie.com/embed/${youtube.id}`}
         width="1024"
         height="576"
         className={styles.iframe}
