@@ -10,10 +10,10 @@ const VimeoVideo = props => {
     <div className={styles.container}>
       <iframe
         src={`https://player.vimeo.com/video/${vimeo.id}?color=9abcc3`}
-        frameborder="0"
+        frameBorder="0"
         className={styles.iframe}
         allow="autoplay; fullscreen"
-        allowfullscreen>
+        allowFullscreen>
       </iframe>
       <script src="https://player.vimeo.com/api/player.js"></script>
     </div>
