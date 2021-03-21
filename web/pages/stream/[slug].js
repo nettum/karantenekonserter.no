@@ -99,7 +99,7 @@ const Stream = (props) => {
             <BlockContent blocks={realtimeFields.description} serializers={serializers} />
           </div>
         </div>
-          {organizer != null &&
+          {organizer && organizer.length > 0 &&
             <div className={styles.organizers}>
               <h3>Denne konserten er arrangert av:</h3>
               <ul>{renderOrganizers(organizer)}</ul>
