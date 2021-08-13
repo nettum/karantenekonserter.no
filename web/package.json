@@ -22,10 +22,10 @@
     "get-video-id": "^3.2.0",
     "get-youtube-id": "^1.0.1",
     "groq": "^1.150.1",
-    "next": "^10.0.9",
-    "next-seo": "^4.22.0",
+    "next": "^10.2.3",
+    "next-seo": "^4.26.0",
     "react": "^16.14.0",
-    "react-countdown": "^2.3.1",
+    "react-countdown": "^2.3.2",
     "react-dom": "^16.14.0"
   }
 }
