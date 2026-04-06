@@ -1,5 +1,6 @@
 import Router from 'next/router'
 import Head from 'next/head';
+import Script from 'next/script';
 import { generateDefaultSeo } from 'next-seo/pages';
 
 import '../styles.css'
@@ -32,28 +33,20 @@ function MyApp({ Component, pageProps }) {
             ],
           },
         })}
-        <script
-          async
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
-        />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${GA_TRACKING_ID}', {
-            page_path: window.location.pathname,
-            anonymize_ip: true,
-          });
-        `,
-          }}
-        />
-        <link
-          href="https://fonts.googleapis.com/css?family=Bitter|Open+Sans&display=swap"
-          rel="stylesheet"
-        />
       </Head>
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+        strategy="afterInteractive"
+      />
+      <Script id="gtag-init" strategy="afterInteractive">{`
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '${GA_TRACKING_ID}', {
+          page_path: window.location.pathname,
+          anonymize_ip: true,
+        });
+      `}</Script>
       <Layout>
         <Component {...pageProps} />
       </Layout>
