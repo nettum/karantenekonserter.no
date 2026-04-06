@@ -31,3 +31,7 @@
   position: relative;
   top: 5px;
 }
+
+.smallTexts {
+  text-align: center;
+}

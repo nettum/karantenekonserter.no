@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { NextSeo } from 'next-seo';
+import Head from 'next/head';
+import { generateNextSeo } from 'next-seo/pages';
 
 import client from '../../client';
-import BlockContent from '@sanity/block-content-to-react';
+import { PortableText } from '@portabletext/react';
 
 import FacebookVideo from '../../components/facebookvideo';
 import YoutubeVideo from '../../components/youtubevideo';
@@ -55,10 +56,10 @@ const Stream = (props) => {
     minute: 'numeric'}
     ).format(new Date(streamDate));
 
-  const serializers = {
+  const components = {
     marks: {
-      link: ({mark, children}) => {
-        const { href } = mark
+      link: ({value, children}) => {
+        const { href } = value
         return <a href={href} target="_blank" rel="noopener">{children}</a>
       },
     }
@@ -66,23 +67,25 @@ const Stream = (props) => {
 
   return (
     <article className={styles.main}>
-      <NextSeo
-        title={`${realtimeFields.title} | karantenekonserter.no`}
-        description={`Se ${realtimeFields.title} og flere konserter på karantenekonserter.no`}
-        openGraph={{
-          type: 'website',
-          url: `https://karantenekonserter.no/stream/${slug.current}`,
+      <Head>
+        {generateNextSeo({
           title: `${realtimeFields.title} | karantenekonserter.no`,
-          description: 'STØTT NORSKE ARTISTER! Se opptak og hvilke konserter som kommer for strømming på karantenekonserter.no',
-          images: [
-            {
-              url: urlFor(poster).width(1200).height(630).url(),
-              width: 1200,
-              height: 630,
-            },
-          ],
-        }}
-      />
+          description: `Se ${realtimeFields.title} og flere konserter på karantenekonserter.no`,
+          openGraph: {
+            type: 'website',
+            url: `https://karantenekonserter.no/stream/${slug.current}`,
+            title: `${realtimeFields.title} | karantenekonserter.no`,
+            description: 'STØTT NORSKE ARTISTER! Se opptak og hvilke konserter som kommer for strømming på karantenekonserter.no',
+            images: [
+              {
+                url: urlFor(poster).width(1200).height(630).url(),
+                width: 1200,
+                height: 630,
+              },
+            ],
+          },
+        })}
+      </Head>
       {!realtimeFields.facebookUrl && !realtimeFields.youtubeUrl && !realtimeFields.vimeoUrl && poster && <img src={urlFor(poster).width(1280).height(720).url()} alt={`Skjermbilde av ${realtimeFields.title}`} />}
       {realtimeFields.facebookUrl && <FacebookVideo url={realtimeFields.facebookUrl} />}
       {realtimeFields.youtubeUrl && <YoutubeVideo url={realtimeFields.youtubeUrl} />}
@@ -96,7 +99,7 @@ const Stream = (props) => {
             </div>
           </div>
           <div className={styles.info}>
-            <BlockContent blocks={realtimeFields.description} serializers={serializers} />
+            <PortableText value={realtimeFields.description} components={components} />
           </div>
         </div>
           {organizer && organizer.length > 0 &&

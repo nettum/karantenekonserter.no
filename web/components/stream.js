@@ -43,12 +43,10 @@ const Stream = ({ stream, status })  => {
   return (
     <div key={_id} className={styles.item}>
       <Link href="/stream/[slug]" as={`/stream/${slug.current}`}>
-        <a>
-          {poster && <div className={styles.imgwrapper}><img src={urlFor(poster).width(350).height(197).url()} alt={`Skjermbilde av ${title}`} loading="lazy" /></div>}
-          <h3>{title}</h3>
-          <small>{new Intl.DateTimeFormat('nb-NO', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'} ).format(new Date(streamDate))}</small>
-          {status === 'Neste ut' && renderNextLabel(streamDate)}
-        </a>
+        {poster && <div className={styles.imgwrapper}><img src={urlFor(poster).width(350).height(197).url()} alt={`Skjermbilde av ${title}`} loading="lazy" /></div>}
+        <h3>{title}</h3>
+        <small>{new Intl.DateTimeFormat('nb-NO', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'} ).format(new Date(streamDate))}</small>
+        {status === 'Neste ut' && renderNextLabel(streamDate)}
       </Link>
     </div>
   )

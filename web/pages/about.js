@@ -1,6 +1,6 @@
 import groq from 'groq'
 import client from '../client'
-import BlockContent from '@sanity/block-content-to-react';
+import { PortableText } from '@portabletext/react';
 
 import styles from './about.module.css';
 
@@ -10,7 +10,7 @@ const About = (props) => {
     <div className={styles.main}>
       <h1>{title}</h1>
       <div>
-        <BlockContent blocks={body} />
+        <PortableText value={body} />
       </div>
     </div>
   )

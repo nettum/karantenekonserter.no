@@ -14,6 +14,11 @@ const Index = (props) => {
   let { upcoming = [], streaming = [], archive = [] } = streams;
 
   useEffect(() => {
+    setSearchQuery(props.search);
+    setConcept(props.concept);
+  }, [props.search, props.concept]);
+
+  useEffect(() => {
     const getInitialStreams = async () => {
       setConcepts(await getConcepts());
     };
@@ -56,7 +61,7 @@ const Index = (props) => {
   return (
     <div className={styles.main}>
       <form>
-        <select name="concept" onChange={handleConcept} value={concept}>
+        <select name="concept" onChange={handleConcept} value={concept || ''}>
           <option value="">Filtrer på konsept/scene...</option>
             {concepts && concepts.map(concept =>
               <option key={concept.slug} value={concept.slug}>{concept.title}</option>
@@ -66,7 +71,7 @@ const Index = (props) => {
           name="search"
           type="text"
           placeholder="Søk"
-          value={search}
+          value={search || ''}
           onChange={handleSearch}
         />
       </form>
